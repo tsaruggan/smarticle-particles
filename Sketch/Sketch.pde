@@ -10,7 +10,6 @@ Population population;
 PVector start, target; 
 Obstacle[] obstacles; 
 
-Obstacle o;
 void setup() {
   size(600, 600);
 
