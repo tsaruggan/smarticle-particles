@@ -69,3 +69,15 @@ void displayText() {
   fill(200);
   text(text, 10, 20);
 }
+
+void mousePressed(){
+  init();
+}
+
+void init(){
+   start= new PVector(width/2, height*0.75); //indicate spawning position of particles
+  target = new PVector(width/2, height*0.1, 25); //indicate target position of particles
+  obstacles = createObstacles(); //create the obstacles defined in the create obstacles method
+
+  population = new Population(start, target, obstacles, lifespan, populationSize, tenacity, mutation); //create new population
+}

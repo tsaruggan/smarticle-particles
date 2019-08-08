@@ -1,6 +1,6 @@
 class Particle {
   public DNA dna; //containing genes
-  PVector pos, vel, acc, target, screen; 
+  PVector pos = new PVector(0,0,0), vel= new PVector(0,0,0), acc= new PVector(0,0,0), target= new PVector(0,0,0), screen= new PVector(0,0,0); 
   int age, lifespan, fitness;
   boolean alive, success;
   Obstacle[] obstacles;
