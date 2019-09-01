@@ -1,14 +1,14 @@
 class Particle {
   public DNA dna; //containing genes
-  PVector pos = new PVector(0,0,0), vel= new PVector(0,0,0), acc= new PVector(0,0,0), target= new PVector(0,0,0), screen= new PVector(0,0,0); 
+  PVector pos = new PVector(0, 0, 0), vel= new PVector(0, 0, 0), acc= new PVector(0, 0, 0), target= new PVector(0, 0, 0), screen= new PVector(0, 0, 0); 
   int age, lifespan, fitness;
   boolean alive, success;
-  Obstacle[] obstacles;
+  ArrayList <Obstacle> obstacles = new ArrayList();
 
   //animations
   float radius = 2.5;
 
-  public Particle(PVector start, PVector target, Obstacle[] obstacles, int lifespan, float tenacity) {
+  public Particle(PVector start, PVector target, ArrayList <Obstacle> obstacles, int lifespan, float tenacity) {
     this.dna = new DNA(lifespan, tenacity);
 
     this.pos = start.copy(); //current cartesian position 2D
@@ -25,12 +25,11 @@ class Particle {
     this.success = false; //particle has not reached target
   }
 
-  public Particle(PVector start, PVector target, Obstacle[] obstacles, PVector[] genes, int lifespan) {
+  public Particle(PVector start, PVector target, PVector[] genes, int lifespan) {
     this.dna = new DNA(genes);
 
     this.pos = start.copy(); //current cartesian position 2D
     this.target = target.copy(); //position of target on screen 2D
-    this.obstacles = obstacles;
 
     this.vel = new PVector(0, 0); //current velocity  2D
     this.acc = new PVector(0, 0); //current acceleration 2D 
@@ -91,16 +90,21 @@ class Particle {
     }
   }
 
+  public void setObstacles(ArrayList <Obstacle> obstacles) { //set obstacles arraylist
+    this.obstacles=obstacles;
+  }
+
   public void checkObstacles() { //check if particle has hit obstacle
-    for (int i = 0; i < obstacles.length; i++) {
-      int w = obstacles[i].w;
-      int h = obstacles[i].h;
-      int x = obstacles[i].x;
-      int y = obstacles[i].y;
-      boolean t1 = pos.x > x + radius;
-      boolean t2 = pos.x < (x+w) - radius;
-      boolean t3 = pos.y > y - radius;
-      boolean t4 = pos.y < (y+h) + radius;
+
+    for (int i = 0; i < obstacles.size(); i++) {
+      int w = obstacles.get(i).w;
+      int h = obstacles.get(i).h;
+      int x = obstacles.get(i).x;
+      int y = obstacles.get(i).y;
+      boolean t1 = pos.x >= (x + radius);
+      boolean t2 = pos.x <= ((x+w) - radius);
+      boolean t3 = pos.y >= (y - radius);
+      boolean t4 = pos.y <= ( (y+h) + radius);
       if (t1 && t2 && t3 && t4) {         
         die();
       }

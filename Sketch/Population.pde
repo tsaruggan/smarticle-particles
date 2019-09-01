@@ -3,16 +3,15 @@ class Population {
   int populationSize, lifespan; 
   PVector start, target;
   float mutation, tenacity;
-  Obstacle[] obstacles;
+  ArrayList <Obstacle> obstacles = new ArrayList();
 
-  Population(PVector start, PVector target, Obstacle[] obstacles, int lifespan, int populationSize, float tenacity, float mutation) {
+  Population(PVector start, PVector target, int lifespan, int populationSize, float tenacity, float mutation) {
     this.populationSize = populationSize;
     this.lifespan = lifespan;
     this.population = new Particle[populationSize];
     this.tempPopulation = new Particle[populationSize];
     this.start = start;
     this.target = target; 
-    this.obstacles = obstacles;
     this.mutation = mutation;
     this.tenacity = tenacity;
 
@@ -72,11 +71,12 @@ class Population {
           genes[i] = parent2.dna.genes[i];
         }
       }
-      Particle child = new Particle(start, target, obstacles, genes, lifespan); //create new child using genes 
+      Particle child = new Particle(start, target, genes, lifespan); //create new child using genes 
       tempPopulation[index] = child; //pass the child to temporary population
     }
 
     population = tempPopulation; //copy temporary population to actual population
+    setObstacles(this.obstacles);
   }
 
   public void mutation() {
@@ -98,5 +98,12 @@ class Population {
       }
     }
     return false;
+  }
+
+  public void setObstacles(ArrayList <Obstacle> obstacles) { //set the obstacles array to each particles
+    for (int index = 0; index < populationSize; index++) {
+      this.obstacles=obstacles;
+      population[index].setObstacles(obstacles);
+    }
   }
 }
