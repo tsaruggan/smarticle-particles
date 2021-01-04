@@ -1,5 +1,5 @@
-# Smarticle Particles
-by Saruggan Thiruchelvan (https://github.com/tsaruggan)
+# Smarticle Particles 
+Demo: https://smarticle-particles.herokuapp.com/
 
 This project is inspired by the book, Nature of Code by the legendary Daniel Shiffman.
 
